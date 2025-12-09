@@ -1,0 +1,24 @@
+{
+  "id": "place-blue-lake",
+  "type": "place",
+  "slug": "blue-lake",
+  "lang": "ru",
+  "title": "Голубое озеро",
+  "summary": "Короткая остановка у бирюзовой воды по дороге к Рице. Фото, свежий воздух, 10–15 минут без суеты.",
+  "heroImage": "/images/places/blue-lake.jpg",
+  "content": {
+    "surface": "Бирюзовая вода у дороги к Рице — быстрое фото и вдохнуть горный воздух.",
+    "body": "### Зачем заезжаем\n\n[[blue-lake]] — традиционная короткая пауза между [[gagra]] и [[lake-ritsa]]. Цвет воды держится круглый год, даже зимой.\n\n### Что успеть\n\n- Фото на фоне бирюзы и скал.\n- Вдохнуть влажный горный воздух после моря.\n- Посмотреть на поток воды из пещеры.\n\n### Связь с маршрутом\n\nЭто часть тура [[lake-ritsa-winter]]: 10–15 минут остановки, без спешки и без навязчивых допродаж."
+  },
+  "meta": {
+    "region": "abkhazia",
+    "season": ["winter", "spring", "summer", "autumn"],
+    "tier": 1,
+    "tags": ["короткая остановка", "фото", "горы", "Абхазия"]
+  },
+  "links": [
+    { "rel": "part_of", "targetSlug": "lake-ritsa-winter" },
+    { "rel": "nearby", "targetSlug": "gagra" },
+    { "rel": "nearby", "targetSlug": "lake-ritsa" }
+  ]
+}
