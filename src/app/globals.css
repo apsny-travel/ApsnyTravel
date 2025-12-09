@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles for ApsnyTravel */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-navy-900 text-cloud-dark antialiased;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-semibold text-cloud-dark;
+}
+
+/* Prose styling for Markdown content */
+.prose {
+  @apply text-cloud-dark leading-relaxed;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold mt-8 mb-4 text-cloud-dark;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mt-6 mb-3 text-cloud-dark;
+}
+
+.prose p {
+  @apply mb-4;
+}
+
+.prose ul {
+  @apply list-disc list-inside mb-4 space-y-1;
+}
+
+.prose li {
+  @apply text-cloud-dark;
+}
+
+.prose a {
+  @apply text-winter-blue hover:text-winter-teal underline underline-offset-2 transition-colors;
+}
+
+.prose strong {
+  @apply font-semibold text-cloud-dark;
+}
+
+/* Card hover effect */
+.card-hover {
+  @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-lg;
+}
+
+/* Link styling */
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible {
+  @apply outline-none ring-2 ring-winter-blue ring-offset-2 ring-offset-navy-900 rounded;
+}
