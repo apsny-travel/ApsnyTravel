@@ -12,48 +12,101 @@ import {
   getCapsuleBody
 } from "./schema";
 
-// Import all capsules statically for SSG
-// Legacy tours
-import lakeRitsaWinterLegacy from "@/content/capsules/tours/lake-ritsa-winter.json";
+// ═══════════════════════════════════════════════════════════════
+// CAPSULE IMPORTS - v2.0.0 ApsnyTravel Catalog
+// ═══════════════════════════════════════════════════════════════
 
-// Legacy places
-import gagraLegacy from "@/content/capsules/places/gagra.json";
-import blueLakeLegacy from "@/content/capsules/places/blue-lake.json";
-import lakeRitsaLegacy from "@/content/capsules/places/lake-ritsa.json";
-
-// New v2 catalog tours
+// ── CATALOG TOURS (Tier 1) ──
 import tourRitsaWinter from "@/content/capsules/catalog/tour-ritsa-winter.json";
 import tourSochiCity from "@/content/capsules/catalog/tour-sochi-city.json";
 import tourNewAthos from "@/content/capsules/catalog/tour-new-athos.json";
+import tourGagraPitsunda from "@/content/capsules/catalog/tour-gagra-pitsunda.json";
+import tourKrasnayaPolyana from "@/content/capsules/catalog/tour-krasnaya-polyana.json";
+import tourOlympicEvening from "@/content/capsules/catalog/tour-olympic-evening.json";
+import tourPhotoAbkhazia from "@/content/capsules/catalog/tour-photo-abkhazia.json";
+import tourRosaPanorama from "@/content/capsules/catalog/tour-rosa-panorama.json";
+import tourSukhum from "@/content/capsules/catalog/tour-sukhum.json";
+import tourWinterWaterfalls from "@/content/capsules/catalog/tour-winter-waterfalls.json";
 
-// New v2 places
-import placeRitsa from "@/content/capsules/places/ritsa.json";
+// ── PLACES (Tier 2) ──
+import placeRitsa from "@/content/capsules/places/place-ritsa.json";
 import placeBlueLakeV2 from "@/content/capsules/places/blue-lake-v2.json";
 import placeOlympicPark from "@/content/capsules/places/olympic-park.json";
+import place33Waterfalls from "@/content/capsules/places/place-33-waterfalls.json";
+import placeGagraColonnade from "@/content/capsules/places/place-gagra-colonnade.json";
+import placeRosaKhutor from "@/content/capsules/places/place-rosa-khutor.json";
+import placeNewAthosCave from "@/content/capsules/places/place-new-athos-cave.json";
+import placeDendrary from "@/content/capsules/places/place-dendrary.json";
+import placeSeaPort from "@/content/capsules/places/place-sea-port.json";
+import placePitsundaPine from "@/content/capsules/places/place-pitsunda-pine.json";
+import placeGazprom from "@/content/capsules/places/place-gazprom.json";
+import placeOrekhovsky from "@/content/capsules/places/place-orekhovsky.json";
+import placeSukhumEmbankment from "@/content/capsules/places/place-sukhum-embankment.json";
 
-// Guides
+import placeBotanicalGarden from "@/content/capsules/places/place-botanical-garden.json";
+import placeNewAthosMonastery from "@/content/capsules/places/place-new-athos-monastery.json";
+
+// Legacy places (for backwards compatibility)
+import gagraLegacy from "@/content/capsules/places/gagra.json";
+
+// ── GUIDES (Tier 2) ──
 import guideBorderCrossing from "@/content/capsules/guides/guide-border-crossing.json";
+import guideAbkhaziaFood from "@/content/capsules/guides/guide-abkhazia-food.json";
+import guideWinterTips from "@/content/capsules/guides/guide-winter-tips.json";
+import guideSkiComparison from "@/content/capsules/guides/guide-ski-comparison.json";
+import guideSochiTransport from "@/content/capsules/guides/guide-sochi-transport.json";
+import guidePhotoSpots from "@/content/capsules/guides/guide-photo-spots.json";
+import guidePackingList from "@/content/capsules/guides/guide-packing-list.json";
+import guideWeatherSeasons from "@/content/capsules/guides/guide-weather-seasons.json";
+import guideLocalCustoms from "@/content/capsules/guides/guide-local-customs.json";
 
 /**
  * All capsules indexed by slug
  * Prioritize v2 capsules over legacy ones when slugs match
  */
 const capsulesBySlug: Record<string, Capsule> = {
-  // Tours - v2 catalog
+  // ── Tours (Tier 1 Catalog) ──
   "lake-ritsa-winter": tourRitsaWinter as unknown as TourCapsule,
-  "sochi-city": tourSochiCity as unknown as TourCapsule,
+  "sochi-city-tour": tourSochiCity as unknown as TourCapsule,
   "new-athos-cave": tourNewAthos as unknown as TourCapsule,
+  "gagra-pitsunda": tourGagraPitsunda as unknown as TourCapsule,
+  "krasnaya-polyana-ski": tourKrasnayaPolyana as unknown as TourCapsule,
+  "olympic-park-evening": tourOlympicEvening as unknown as TourCapsule,
+  "photo-tour-abkhazia": tourPhotoAbkhazia as unknown as TourCapsule,
+  "rosa-khutor-panorama": tourRosaPanorama as unknown as TourCapsule,
+  "sukhum-heritage": tourSukhum as unknown as TourCapsule,
+  "winter-waterfalls": tourWinterWaterfalls as unknown as TourCapsule,
   
-  // Places - v2
+  // ── Places (Tier 2) ──
   "lake-ritsa": placeRitsa as unknown as PlaceCapsule,
   "blue-lake": placeBlueLakeV2 as unknown as PlaceCapsule,
   "olympic-park": placeOlympicPark as unknown as PlaceCapsule,
+  "33-waterfalls": place33Waterfalls as unknown as PlaceCapsule,
+  "gagra-colonnade": placeGagraColonnade as unknown as PlaceCapsule,
+  "rosa-khutor": placeRosaKhutor as unknown as PlaceCapsule,
+  "new-athos-cave-place": placeNewAthosCave as unknown as PlaceCapsule,
+  "sochi-dendrary": placeDendrary as unknown as PlaceCapsule,
+  "sochi-sea-port": placeSeaPort as unknown as PlaceCapsule,
+  "pitsunda-pine-grove": placePitsundaPine as unknown as PlaceCapsule,
+  "gazprom-laura": placeGazprom as unknown as PlaceCapsule,
+  "orekhovsky-waterfall": placeOrekhovsky as unknown as PlaceCapsule,
+  "sukhum-embankment": placeSukhumEmbankment as unknown as PlaceCapsule,
+  "sukhum-botanical-garden": placeBotanicalGarden as unknown as PlaceCapsule,
+  "new-athos-monastery": placeNewAthosMonastery as unknown as PlaceCapsule,
   
   // Legacy places (for backwards compatibility)
   "gagra": gagraLegacy as unknown as PlaceCapsule,
   
-  // Guides
+  // ── Guides (Tier 2) ──
   "border-crossing": guideBorderCrossing as unknown as GuideCapsule,
+  "abkhazia-food-guide": guideAbkhaziaFood as unknown as GuideCapsule,
+  "winter-travel-tips": guideWinterTips as unknown as GuideCapsule,
+  "ski-resorts-comparison": guideSkiComparison as unknown as GuideCapsule,
+  "sochi-transport-guide": guideSochiTransport as unknown as GuideCapsule,
+  "best-photo-spots": guidePhotoSpots as unknown as GuideCapsule,
+  "packing-list": guidePackingList as unknown as GuideCapsule,
+  "weather-by-season": guideWeatherSeasons as unknown as GuideCapsule,
+  "local-customs-etiquette": guideLocalCustoms as unknown as GuideCapsule,
 };
 
 /**

@@ -1,0 +1,42 @@
+{
+  "id": "tour-krasnaya-polyana",
+  "tier": 1,
+  "type": "tour",
+  "slug": "krasnaya-polyana-ski",
+  "lang": "ru",
+  "title": "Красная Поляна — горнолыжный день",
+  "subtitle": "Олимпийские горнолыжные курорты",
+  "summary": "Полный день катания на лучших горнолыжных курортах России — Роза Хутор, Газпром, Альпика.",
+  "emoji": "⛷️",
+  "heroImage": "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=800&q=80",
+  "highlights": [
+    "Полный день на склонах",
+    "Выбор курорта по уровню",
+    "Помощь с арендой",
+    "Трансфер от двери до подъёмника"
+  ],
+  "included": ["Трансфер туда и обратно", "Местный гид", "Бутилированная вода"],
+  "notIncluded": ["Ски-пасс", "Аренда снаряжения", "Питание"],
+  "links": [
+    { "rel": "contains", "target": "place-rosa-khutor", "weight": 0.9 },
+    { "rel": "contains", "target": "place-gazprom", "weight": 0.9 },
+    { "rel": "recommends", "target": "guide-ski-comparison", "weight": 0.8 },
+    { "rel": "recommends", "target": "guide-winter-tips", "weight": 0.8 }
+  ],
+  "meta": {
+    "region": "krasnaya-polyana",
+    "tags": ["красная поляна", "горные лыжи", "роза хутор", "сноуборд"],
+    "coordinates": [43.6878, 40.2064],
+    "season": "december",
+    "duration": "12 часов",
+    "price_from": 3500,
+    "difficulty": "moderate"
+  },
+  "content": "## Красная Поляна — горнолыжный рай\n\nТри современных горнолыжных курорта мирового уровня: Роза Хутор, Газпром и Альпика. Трассы любой сложности.\n\n### Что вас ждёт\n- Трансфер от отеля\n- Помощь с арендой снаряжения\n- Рекомендации по трассам",
+  "metadata": {
+    "created": "2025-12-04",
+    "updated": "2025-12-04",
+    "version": "2.0.0",
+    "author": "ApsnyTravel"
+  }
+}

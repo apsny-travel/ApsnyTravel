@@ -1,0 +1,23 @@
+{
+  "id": "place-sea-port",
+  "tier": 2,
+  "type": "place",
+  "slug": "sochi-sea-port",
+  "lang": "ru",
+  "title": "Морской вокзал Сочи",
+  "subtitle": "Архитектурный символ города",
+  "summary": "Величественное здание 1955 года — один из главных символов Сочи со шпилем высотой 71 метр.",
+  "emoji": "⚓",
+  "heroImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+  "highlights": ["Сталинский ампир", "Шпиль 71 м", "Набережная", "Яхты и катера"],
+  "meta": {
+    "region": "sochi",
+    "tags": ["морской вокзал", "сочи", "архитектура"],
+    "coordinates": [43.5817, 39.7186],
+    "season": "all",
+    "visitDuration": "1 час",
+    "entryFee": 0
+  },
+  "content": "## Морской вокзал Сочи\n\nПамятник архитектуры федерального значения, построенный в 1955 году.",
+  "metadata": { "created": "2025-12-04", "updated": "2025-12-04", "version": "2.0.0", "author": "ApsnyTravel" }
+}

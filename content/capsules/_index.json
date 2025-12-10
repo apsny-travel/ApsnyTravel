@@ -1,0 +1,80 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2025-12-04T23:30:00Z",
+  "description": "ApsnyTravel Capsule Index - Complete Catalog",
+  "totalCapsules": 34,
+  "tiers": {
+    "1": {
+      "name": "Catalog",
+      "description": "Main tour offerings",
+      "count": 10
+    },
+    "2": {
+      "name": "Details",
+      "description": "Places, guides",
+      "count": 24
+    }
+  },
+  "catalog": [
+    { "id": "tour-gagra-pitsunda", "file": "catalog/tour-gagra-pitsunda.json", "title": "Гагра и Пицунда", "slug": "gagra-pitsunda" },
+    { "id": "tour-krasnaya-polyana", "file": "catalog/tour-krasnaya-polyana.json", "title": "Красная Поляна", "slug": "krasnaya-polyana-ski" },
+    { "id": "tour-new-athos", "file": "catalog/tour-new-athos.json", "title": "Новоафонская пещера" },
+    { "id": "tour-olympic-evening", "file": "catalog/tour-olympic-evening.json", "title": "Олимпийский парк вечером" },
+    { "id": "tour-photo-abkhazia", "file": "catalog/tour-photo-abkhazia.json", "title": "Фототур по Абхазии" },
+    { "id": "tour-ritsa-winter", "file": "catalog/tour-ritsa-winter.json", "title": "Озеро Рица зимой" },
+    { "id": "tour-rosa-panorama", "file": "catalog/tour-rosa-panorama.json", "title": "Панорамы Роза Хутор" },
+    { "id": "tour-sochi-city", "file": "catalog/tour-sochi-city.json", "title": "Обзорная экскурсия по Сочи" },
+    { "id": "tour-sukhum", "file": "catalog/tour-sukhum.json", "title": "Сухум — столица Абхазии" },
+    { "id": "tour-winter-waterfalls", "file": "catalog/tour-winter-waterfalls.json", "title": "Зимние водопады" }
+  ],
+  "places": [
+    { "id": "place-33-waterfalls", "file": "places/place-33-waterfalls.json", "title": "33 водопада" },
+    { "id": "place-blue-lake", "file": "places/place-blue-lake.json", "title": "Голубое озеро" },
+    { "id": "place-botanical-garden", "file": "places/place-botanical-garden.json", "title": "Ботанический сад Сухума" },
+    { "id": "place-dendrary", "file": "places/place-dendrary.json", "title": "Сочинский дендрарий" },
+    { "id": "place-gagra-colonnade", "file": "places/place-gagra-colonnade.json", "title": "Колоннада Гагры" },
+    { "id": "place-gazprom", "file": "places/place-gazprom.json", "title": "Газпром Лаура" },
+    { "id": "place-new-athos-cave", "file": "places/place-new-athos-cave.json", "title": "Новоафонская пещера" },
+    { "id": "place-new-athos-monastery", "file": "places/place-new-athos-monastery.json", "title": "Новоафонский монастырь" },
+    { "id": "place-olympic-park", "file": "places/place-olympic-park.json", "title": "Олимпийский парк" },
+    { "id": "place-orekhovsky", "file": "places/place-orekhovsky.json", "title": "Ореховский водопад" },
+    { "id": "place-pitsunda-pine", "file": "places/place-pitsunda-pine.json", "title": "Пицундская сосновая роща" },
+    { "id": "place-ritsa", "file": "places/place-ritsa.json", "title": "Озеро Рица" },
+    { "id": "place-rosa-khutor", "file": "places/place-rosa-khutor.json", "title": "Роза Хутор" },
+    { "id": "place-sea-port", "file": "places/place-sea-port.json", "title": "Морской вокзал Сочи" },
+    { "id": "place-sukhum-embankment", "file": "places/place-sukhum-embankment.json", "title": "Набережная Сухума" }
+  ],
+  "guides": [
+    { "id": "guide-abkhazia-food", "file": "guides/guide-abkhazia-food.json", "title": "Что попробовать в Абхазии" },
+    { "id": "guide-border-crossing", "file": "guides/guide-border-crossing.json", "title": "Переход границы с Абхазией" },
+    { "id": "guide-emergency-contacts", "file": "guides/guide-emergency-contacts.json", "title": "Экстренные контакты" },
+    { "id": "guide-kids-friendly", "file": "guides/guide-kids-friendly.json", "title": "Отдых с детьми" },
+    { "id": "guide-local-customs", "file": "guides/guide-local-customs.json", "title": "Местные обычаи" },
+    { "id": "guide-money-budget", "file": "guides/guide-money-budget.json", "title": "Бюджет поездки" },
+    { "id": "guide-packing-list", "file": "guides/guide-packing-list.json", "title": "Что взять с собой" },
+    { "id": "guide-photo-spots", "file": "guides/guide-photo-spots.json", "title": "Лучшие места для фото" },
+    { "id": "guide-safety-tips", "file": "guides/guide-safety-tips.json", "title": "Безопасность в поездке" },
+    { "id": "guide-ski-comparison", "file": "guides/guide-ski-comparison.json", "title": "Сравнение горнолыжных курортов" },
+    { "id": "guide-sochi-transport", "file": "guides/guide-sochi-transport.json", "title": "Транспорт в регионе" },
+    { "id": "guide-souvenirs", "file": "guides/guide-souvenirs.json", "title": "Что привезти домой" },
+    { "id": "guide-weather-seasons", "file": "guides/guide-weather-seasons.json", "title": "Погода по сезонам" },
+    { "id": "guide-winter-tips", "file": "guides/guide-winter-tips.json", "title": "Зимний отдых: советы" }
+  ],
+  "products": [
+    { "id": "product-afon-monastery", "file": "products/product-afon-monastery.json", "title": "Новоафонский монастырь" },
+    { "id": "product-agura-waterfalls", "file": "products/product-agura-waterfalls.json", "title": "Агурские водопады" },
+    { "id": "product-alpine-meadows", "file": "products/product-alpine-meadows.json", "title": "Альпийские луга Абхазии" },
+    { "id": "product-canyon-adventure", "file": "products/product-canyon-adventure.json", "title": "Каньоны Сочи" },
+    { "id": "product-dolphin-watching", "file": "products/product-dolphin-watching.json", "title": "Наблюдение за дельфинами" },
+    { "id": "product-evening-sochi", "file": "products/product-evening-sochi.json", "title": "Вечерний Сочи" },
+    { "id": "product-expedition", "file": "products/product-expedition.json", "title": "Мини-экспедиция в горы" },
+    { "id": "product-gazprom-ski", "file": "products/product-gazprom-ski.json", "title": "Газпром Лаура — горнолыжный день" },
+    { "id": "product-gegsky-waterfall", "file": "products/product-gegsky-waterfall.json", "title": "Гегский водопад" },
+    { "id": "product-horse-riding", "file": "products/product-horse-riding.json", "title": "Конная прогулка" },
+    { "id": "product-kids-tour", "file": "products/product-kids-tour.json", "title": "Детский тур" },
+    { "id": "product-shopping", "file": "products/product-shopping.json", "title": "Шопинг-тур в Абхазию" },
+    { "id": "product-sunset-cruise", "file": "products/product-sunset-cruise.json", "title": "Закатный круиз" },
+    { "id": "product-tea-plantation", "file": "products/product-tea-plantation.json", "title": "Чайные плантации" },
+    { "id": "product-wine-tasting", "file": "products/product-wine-tasting.json", "title": "Дегустация абхазских вин" }
+  ]
+}
