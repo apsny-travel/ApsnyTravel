@@ -186,6 +186,7 @@ export function getRelatedPlacesForTour(tour: TourCapsule): PlaceCapsule[] {
  * Get the parent tour for a place (using "part_of" links)
  */
 export function getParentTourForPlace(place: PlaceCapsule): TourCapsule | undefined {
+  if (!place.links) return undefined;
   const tourLink = place.links.find((link) => link.rel === "part_of");
   if (!tourLink) return undefined;
   const slug = tourLink.targetSlug || tourLink.target?.replace('tour-', '');
@@ -196,6 +197,7 @@ export function getParentTourForPlace(place: PlaceCapsule): TourCapsule | undefi
  * Get nearby places for a place (using "nearby" links)
  */
 export function getNearbyPlaces(place: PlaceCapsule): PlaceCapsule[] {
+  if (!place.links) return [];
   const nearbySlugs = place.links
     .filter((link) => link.rel === "nearby")
     .map((link) => link.targetSlug || link.target?.replace('place-', ''));
