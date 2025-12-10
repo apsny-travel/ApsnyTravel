@@ -9,10 +9,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "/", label: "Главная" },
-    { href: "/tours", label: "Туры" },
-    { href: "/guides/border-crossing", label: "Гиды" },
-    { href: "/contacts", label: "Контакты" },
+    { href: "/tours", label: "Каталог" },
   ];
 
   return (
@@ -21,11 +18,11 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link
-            href="/"
+            href="/tours"
             className="flex items-center gap-2 text-cloud-dark hover:text-winter-blue transition-colors"
           >
             <Mountain className="w-8 h-8" />
-            <span className="text-xl font-semibold">ApsnyTravel</span>
+            <span className="text-xl font-semibold">Каталог Туров</span>
           </Link>
 
           {/* Desktop Navigation */}

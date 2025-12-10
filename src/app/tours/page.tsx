@@ -5,8 +5,8 @@ import TourCard from "@/components/TourCard";
 import { Mountain } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Туры — ApsnyTravel",
-  description: "Зимние туры по Абхазии. Озеро Рица, Гагра и другие красивейшие места.",
+  title: "Каталог Туров — Абхазия",
+  description: "Каталог туров по Абхазии. Озеро Рица, Гагра и другие красивейшие места.",
 };
 
 export default function ToursPage() {
@@ -20,12 +20,11 @@ export default function ToursPage() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Mountain className="w-8 h-8 text-winter-blue" />
             <h1 className="text-3xl md:text-4xl font-bold text-cloud-dark">
-              Наши туры
+              Каталог туров
             </h1>
           </div>
           <p className="text-cloud-muted text-lg max-w-2xl mx-auto">
-            Выберите путешествие, которое подходит именно вам. Мы проведём вас по
-            самым красивым местам Абхазии.
+            Выберите путешествие, которое подходит именно вам. Туры по самым красивым местам Абхазии.
           </p>
         </div>
 
@@ -41,25 +40,6 @@ export default function ToursPage() {
             <p className="text-cloud-muted">Туры скоро появятся...</p>
           </div>
         )}
-
-        {/* Info Note */}
-        <div className="mt-16 max-w-2xl mx-auto text-center">
-          <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
-            <h3 className="text-lg font-semibold text-cloud-dark mb-2">
-              Хотите индивидуальный тур?
-            </h3>
-            <p className="text-cloud-muted text-sm mb-4">
-              Мы можем организовать поездку по вашему маршруту или адаптировать
-              существующий тур под ваши пожелания.
-            </p>
-            <a
-              href="/contacts"
-              className="text-winter-blue hover:text-winter-teal font-medium transition-colors"
-            >
-              Свяжитесь с нами →
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );
