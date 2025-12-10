@@ -11,6 +11,9 @@ interface PlaceCardProps {
 
 export default function PlaceCard({ place, size = "medium" }: PlaceCardProps) {
   const isSmall = size === "small";
+  
+  // Get visit duration from either format
+  const visitDuration = place.visitDuration || place.meta?.duration;
 
   return (
     <Link href={`/places/${place.slug}`} className="block group">
@@ -37,6 +40,12 @@ export default function PlaceCard({ place, size = "medium" }: PlaceCardProps) {
               <MapPin className="w-10 h-10 text-navy-600" />
             </div>
           )}
+          {/* Emoji Badge */}
+          {place.emoji && (
+            <div className="absolute top-2 left-2">
+              <span className="text-xl">{place.emoji}</span>
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -57,11 +66,22 @@ export default function PlaceCard({ place, size = "medium" }: PlaceCardProps) {
           </p>
 
           {/* Meta */}
-          {!isSmall && place.visitDuration && (
+          {!isSmall && visitDuration && (
             <div className="mt-3 pt-3 border-t border-navy-700">
               <span className="text-cloud-muted text-xs">
-                Время посещения: {place.visitDuration}
+                Время посещения: {visitDuration}
               </span>
+            </div>
+          )}
+          
+          {/* Highlights */}
+          {!isSmall && place.highlights && place.highlights.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {place.highlights.slice(0, 3).map((highlight, idx) => (
+                <span key={idx} className="text-xs bg-navy-700 text-cloud-muted px-2 py-0.5 rounded">
+                  {highlight}
+                </span>
+              ))}
             </div>
           )}
         </div>

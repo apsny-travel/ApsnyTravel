@@ -3,13 +3,17 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Clock, Mountain as MountainIcon, Compass } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Mountain as MountainIcon, Compass, Star, Info } from "lucide-react";
 import {
   getAllPlaceSlugs,
   getPlaceBySlug,
   getParentTourForPlace,
   getNearbyPlaces,
+  getCapsuleRegion,
+  getCapsuleDuration,
+  getCapsulePrice,
 } from "@/lib/capsules/loader";
+import { getCapsuleBody } from "@/lib/capsules/schema";
 import MarkdownContent from "@/components/MarkdownContent";
 import PlaceCard from "@/components/PlaceCard";
 
@@ -48,6 +52,29 @@ export default function PlaceDetailPage({ params }: PageProps) {
 
   const parentTour = getParentTourForPlace(place);
   const nearbyPlaces = getNearbyPlaces(place);
+  
+  // Handle both v1 and v2 formats
+  const region = getCapsuleRegion(place) || place.region;
+  const visitDuration = place.visitDuration || place.meta?.duration || place.practicalInfo?.bestTime;
+  const bestTime = place.bestTime || place.practicalInfo?.bestTime;
+  const contentBody = getCapsuleBody(place);
+  const highlights = place.highlights || [];
+  const practicalInfo = place.practicalInfo;
+
+  const regionLabels: Record<string, string> = {
+    abkhazia: "Абхазия",
+    sochi: "Сочи",
+    "krasnaya-polyana": "Красная Поляна",
+  };
+
+  // Get parent tour price safely
+  const getParentTourPrice = () => {
+    if (!parentTour) return null;
+    return parentTour.priceFrom || parentTour.meta?.price_from;
+  };
+  
+  const parentTourPrice = getParentTourPrice();
+  const parentTourDuration = parentTour?.duration || parentTour?.meta?.duration;
 
   return (
     <article>
@@ -83,8 +110,9 @@ export default function PlaceDetailPage({ params }: PageProps) {
           <div className="flex items-center gap-3 mb-4">
             <MapPin className="w-6 h-6 text-winter-blue" />
             <span className="text-cloud-muted">
-              {place.region === "abkhazia" ? "Абхазия" : place.region}
+              {region ? (regionLabels[region] || region) : ""}
             </span>
+            {place.emoji && <span className="text-2xl">{place.emoji}</span>}
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-cloud-dark mb-4">
@@ -98,13 +126,13 @@ export default function PlaceDetailPage({ params }: PageProps) {
       <section className="bg-navy-800 border-y border-navy-700">
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-wrap gap-6 md:gap-10">
-            {place.visitDuration && (
+            {visitDuration && (
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-winter-blue" />
                 <div>
                   <div className="text-xs text-cloud-muted">Время посещения</div>
                   <div className="text-cloud-dark font-medium">
-                    {place.visitDuration}
+                    {visitDuration}
                   </div>
                 </div>
               </div>
@@ -120,12 +148,21 @@ export default function PlaceDetailPage({ params }: PageProps) {
                 </div>
               </div>
             )}
-            {place.bestTime && (
+            {bestTime && (
               <div className="flex items-center gap-3">
                 <Compass className="w-5 h-5 text-winter-blue" />
                 <div>
                   <div className="text-xs text-cloud-muted">Лучшее время</div>
-                  <div className="text-cloud-dark font-medium">{place.bestTime}</div>
+                  <div className="text-cloud-dark font-medium">{bestTime}</div>
+                </div>
+              </div>
+            )}
+            {practicalInfo?.entryFee && (
+              <div className="flex items-center gap-3">
+                <Info className="w-5 h-5 text-winter-blue" />
+                <div>
+                  <div className="text-xs text-cloud-muted">Вход</div>
+                  <div className="text-cloud-dark font-medium">{practicalInfo.entryFee}</div>
                 </div>
               </div>
             )}
@@ -139,11 +176,49 @@ export default function PlaceDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Body Content */}
             <div className="lg:col-span-2">
-              <MarkdownContent content={place.content.body} />
+              <MarkdownContent content={contentBody} />
             </div>
 
             {/* Sidebar */}
             <aside className="space-y-8">
+              {/* Highlights */}
+              {highlights.length > 0 && (
+                <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+                  <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-winter-blue" />
+                    Особенности
+                  </h3>
+                  <ul className="space-y-2">
+                    {highlights.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2 text-cloud-muted text-sm"
+                      >
+                        <Star className="w-4 h-4 text-winter-blue flex-shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Practical Info */}
+              {practicalInfo && practicalInfo.facilities && practicalInfo.facilities.length > 0 && (
+                <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+                  <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
+                    <Info className="w-5 h-5 text-winter-blue" />
+                    Инфраструктура
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {practicalInfo.facilities.map((facility, idx) => (
+                      <span key={idx} className="text-xs bg-navy-700 text-cloud-muted px-2 py-1 rounded">
+                        {facility}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Part of Tour */}
               {parentTour && (
                 <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
@@ -170,8 +245,8 @@ export default function PlaceDetailPage({ params }: PageProps) {
                           {parentTour.title}
                         </div>
                         <div className="text-cloud-muted text-sm mt-1">
-                          {parentTour.duration} · от{" "}
-                          {parentTour.priceFrom.toLocaleString("ru-RU")} ₽
+                          {parentTourDuration && `${parentTourDuration} · `}
+                          {parentTourPrice && `от ${parentTourPrice.toLocaleString("ru-RU")} ₽`}
                         </div>
                       </div>
                     </div>

@@ -2,7 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock, Mountain, Snowflake, MapPin } from "lucide-react";
-import { getTourBySlug, getRelatedPlacesForTour } from "@/lib/capsules/loader";
+import { getTourBySlug, getRelatedPlacesForTour, getCapsuleDuration, getCapsulePrice, getCapsuleRegion } from "@/lib/capsules/loader";
+import { getCapsuleSurface } from "@/lib/capsules/schema";
 import PlaceCard from "@/components/PlaceCard";
 
 export default function HomePage() {
@@ -16,6 +17,18 @@ export default function HomePage() {
       </div>
     );
   }
+
+  // Handle both v1 and v2 formats
+  const duration = getCapsuleDuration(tour) || tour.duration || "";
+  const price = getCapsulePrice(tour) || tour.priceFrom;
+  const region = getCapsuleRegion(tour) || tour.region || "";
+  const surfaceText = getCapsuleSurface(tour);
+
+  const regionLabels: Record<string, string> = {
+    abkhazia: "Абхазия",
+    sochi: "Сочи",
+    "krasnaya-polyana": "Красная Поляна",
+  };
 
   return (
     <div>
@@ -44,6 +57,7 @@ export default function HomePage() {
                 <Snowflake className="w-4 h-4" />
                 Зимний сезон 2024/25
               </span>
+              {tour.emoji && <span className="text-2xl">{tour.emoji}</span>}
             </div>
 
             {/* Title */}
@@ -53,22 +67,28 @@ export default function HomePage() {
 
             {/* Surface text */}
             <p className="text-xl md:text-2xl text-cloud-muted mb-8 leading-relaxed">
-              {tour.content.surface}
+              {surfaceText}
             </p>
 
             {/* Meta Info */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <span className="flex items-center gap-2 text-cloud-muted bg-navy-800/80 px-4 py-2 rounded-lg">
-                <Clock className="w-5 h-5 text-winter-blue" />
-                {tour.duration}
-              </span>
-              <span className="flex items-center gap-2 text-cloud-muted bg-navy-800/80 px-4 py-2 rounded-lg">
-                <Mountain className="w-5 h-5 text-winter-blue" />
-                {tour.region === "abkhazia" ? "Абхазия" : tour.region}
-              </span>
-              <span className="flex items-center gap-2 text-cloud-dark bg-navy-800/80 px-4 py-2 rounded-lg font-semibold">
-                от {tour.priceFrom.toLocaleString("ru-RU")} ₽
-              </span>
+              {duration && (
+                <span className="flex items-center gap-2 text-cloud-muted bg-navy-800/80 px-4 py-2 rounded-lg">
+                  <Clock className="w-5 h-5 text-winter-blue" />
+                  {duration}
+                </span>
+              )}
+              {region && (
+                <span className="flex items-center gap-2 text-cloud-muted bg-navy-800/80 px-4 py-2 rounded-lg">
+                  <Mountain className="w-5 h-5 text-winter-blue" />
+                  {regionLabels[region] || region}
+                </span>
+              )}
+              {price && (
+                <span className="flex items-center gap-2 text-cloud-dark bg-navy-800/80 px-4 py-2 rounded-lg font-semibold">
+                  от {price.toLocaleString("ru-RU")} ₽
+                </span>
+              )}
             </div>
 
             {/* CTA */}
