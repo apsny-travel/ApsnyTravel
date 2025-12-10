@@ -10,8 +10,6 @@ import {
   getParentTourForPlace,
   getNearbyPlaces,
   getCapsuleRegion,
-  getCapsuleDuration,
-  getCapsulePrice,
 } from "@/lib/capsules/loader";
 import { getCapsuleBody } from "@/lib/capsules/schema";
 import MarkdownContent from "@/components/MarkdownContent";
@@ -33,12 +31,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!place) {
     return {
-      title: "Место не найдено — ApsnyTravel",
+      title: "Место не найдено — Каталог Туров",
     };
   }
 
   return {
-    title: `${place.title} — ApsnyTravel`,
+    title: `${place.title} — Каталог Туров`,
     description: place.summary,
   };
 }
@@ -81,17 +79,17 @@ export default function PlaceDetailPage({ params }: PageProps) {
       {/* Hero Section */}
       <section className="relative min-h-[45vh] flex items-end">
         {/* Background */}
-        <div className="absolute inset-0 bg-navy-800">
+        <div className="absolute inset-0 bg-stone-800">
           {place.heroImage && (
             <Image
               src={place.heroImage}
               alt={place.title}
               fill
-              className="object-cover opacity-50"
+              className="object-cover opacity-80"
               priority
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent" />
         </div>
 
         {/* Content */}
@@ -100,7 +98,7 @@ export default function PlaceDetailPage({ params }: PageProps) {
           {parentTour && (
             <Link
               href={`/tours/${parentTour.slug}`}
-              className="inline-flex items-center gap-2 text-cloud-muted hover:text-cloud-dark transition-colors mb-6"
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-6 text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
               {parentTour.title}
@@ -108,30 +106,32 @@ export default function PlaceDetailPage({ params }: PageProps) {
           )}
 
           <div className="flex items-center gap-3 mb-4">
-            <MapPin className="w-6 h-6 text-winter-blue" />
-            <span className="text-cloud-muted">
+            <MapPin className="w-6 h-6 text-lake-light" />
+            <span className="text-white/90">
               {region ? (regionLabels[region] || region) : ""}
             </span>
-            {place.emoji && <span className="text-2xl">{place.emoji}</span>}
+            {place.emoji && <span className="text-2xl drop-shadow-lg">{place.emoji}</span>}
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-cloud-dark mb-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             {place.title}
           </h1>
-          <p className="text-xl text-cloud-muted max-w-3xl">{place.summary}</p>
+          <p className="text-xl text-white/90 max-w-3xl leading-relaxed">{place.summary}</p>
         </div>
       </section>
 
       {/* Info Panel */}
-      <section className="bg-navy-800 border-y border-navy-700">
+      <section className="bg-cloud-soft border-y border-cloud-cream">
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-wrap gap-6 md:gap-10">
             {visitDuration && (
               <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-winter-blue" />
+                <div className="w-10 h-10 rounded-xl bg-lake/10 flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-lake" />
+                </div>
                 <div>
-                  <div className="text-xs text-cloud-muted">Время посещения</div>
-                  <div className="text-cloud-dark font-medium">
+                  <div className="text-xs text-ink-400 uppercase tracking-wide">Время посещения</div>
+                  <div className="text-ink-900 font-semibold">
                     {visitDuration}
                   </div>
                 </div>
@@ -139,10 +139,12 @@ export default function PlaceDetailPage({ params }: PageProps) {
             )}
             {place.altitude && (
               <div className="flex items-center gap-3">
-                <MountainIcon className="w-5 h-5 text-winter-blue" />
+                <div className="w-10 h-10 rounded-xl bg-lake/10 flex items-center justify-center">
+                  <MountainIcon className="w-5 h-5 text-lake" />
+                </div>
                 <div>
-                  <div className="text-xs text-cloud-muted">Высота</div>
-                  <div className="text-cloud-dark font-medium">
+                  <div className="text-xs text-ink-400 uppercase tracking-wide">Высота</div>
+                  <div className="text-ink-900 font-semibold">
                     {place.altitude} м
                   </div>
                 </div>
@@ -150,19 +152,23 @@ export default function PlaceDetailPage({ params }: PageProps) {
             )}
             {bestTime && (
               <div className="flex items-center gap-3">
-                <Compass className="w-5 h-5 text-winter-blue" />
+                <div className="w-10 h-10 rounded-xl bg-lake/10 flex items-center justify-center">
+                  <Compass className="w-5 h-5 text-lake" />
+                </div>
                 <div>
-                  <div className="text-xs text-cloud-muted">Лучшее время</div>
-                  <div className="text-cloud-dark font-medium">{bestTime}</div>
+                  <div className="text-xs text-ink-400 uppercase tracking-wide">Лучшее время</div>
+                  <div className="text-ink-900 font-semibold">{bestTime}</div>
                 </div>
               </div>
             )}
             {practicalInfo?.entryFee && (
               <div className="flex items-center gap-3">
-                <Info className="w-5 h-5 text-winter-blue" />
+                <div className="w-10 h-10 rounded-xl bg-lake/10 flex items-center justify-center">
+                  <Info className="w-5 h-5 text-lake" />
+                </div>
                 <div>
-                  <div className="text-xs text-cloud-muted">Вход</div>
-                  <div className="text-cloud-dark font-medium">{practicalInfo.entryFee}</div>
+                  <div className="text-xs text-ink-400 uppercase tracking-wide">Вход</div>
+                  <div className="text-ink-900 font-semibold">{practicalInfo.entryFee}</div>
                 </div>
               </div>
             )}
@@ -180,21 +186,21 @@ export default function PlaceDetailPage({ params }: PageProps) {
             </div>
 
             {/* Sidebar */}
-            <aside className="space-y-8">
+            <aside className="space-y-6">
               {/* Highlights */}
               {highlights.length > 0 && (
-                <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
-                  <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
-                    <Star className="w-5 h-5 text-winter-blue" />
+                <div className="bg-cloud-soft rounded-2xl p-6 border border-cloud-cream shadow-soft">
+                  <h3 className="text-lg font-semibold text-ink-950 mb-4 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-terracotta" />
                     Особенности
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-3">
                     {highlights.map((item, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2 text-cloud-muted text-sm"
+                        className="flex items-start gap-3 text-ink-700 text-sm"
                       >
-                        <Star className="w-4 h-4 text-winter-blue flex-shrink-0 mt-0.5" />
+                        <Star className="w-4 h-4 text-terracotta flex-shrink-0 mt-0.5" />
                         {item}
                       </li>
                     ))}
@@ -204,14 +210,14 @@ export default function PlaceDetailPage({ params }: PageProps) {
 
               {/* Practical Info */}
               {practicalInfo && practicalInfo.facilities && practicalInfo.facilities.length > 0 && (
-                <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
-                  <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
-                    <Info className="w-5 h-5 text-winter-blue" />
+                <div className="bg-cloud-soft rounded-2xl p-6 border border-cloud-cream shadow-soft">
+                  <h3 className="text-lg font-semibold text-ink-950 mb-4 flex items-center gap-2">
+                    <Info className="w-5 h-5 text-emerald" />
                     Инфраструктура
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {practicalInfo.facilities.map((facility, idx) => (
-                      <span key={idx} className="text-xs bg-navy-700 text-cloud-muted px-2 py-1 rounded">
+                      <span key={idx} className="text-xs bg-emerald-50 text-emerald-dark px-3 py-1.5 rounded-full">
                         {facility}
                       </span>
                     ))}
@@ -221,8 +227,8 @@ export default function PlaceDetailPage({ params }: PageProps) {
 
               {/* Part of Tour */}
               {parentTour && (
-                <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
-                  <h3 className="text-lg font-semibold text-cloud-dark mb-3">
+                <div className="bg-cloud-soft rounded-2xl p-6 border border-cloud-cream shadow-soft">
+                  <h3 className="text-lg font-semibold text-ink-950 mb-3">
                     Часть тура
                   </h3>
                   <Link
@@ -230,7 +236,7 @@ export default function PlaceDetailPage({ params }: PageProps) {
                     className="block group"
                   >
                     <div className="flex items-start gap-3">
-                      <div className="w-16 h-16 bg-navy-700 rounded-lg overflow-hidden flex-shrink-0 relative">
+                      <div className="w-16 h-16 bg-cloud-warm rounded-xl overflow-hidden flex-shrink-0 relative">
                         {parentTour.heroImage && (
                           <Image
                             src={parentTour.heroImage}
@@ -241,12 +247,12 @@ export default function PlaceDetailPage({ params }: PageProps) {
                         )}
                       </div>
                       <div>
-                        <div className="text-cloud-dark font-medium group-hover:text-winter-blue transition-colors">
+                        <div className="text-ink-900 font-medium group-hover:text-emerald transition-colors">
                           {parentTour.title}
                         </div>
-                        <div className="text-cloud-muted text-sm mt-1">
+                        <div className="text-ink-500 text-sm mt-1">
                           {parentTourDuration && `${parentTourDuration} · `}
-                          {parentTourPrice && `от ${parentTourPrice.toLocaleString("ru-RU")} ₽`}
+                          {parentTourPrice && <span className="text-emerald font-medium">от {parentTourPrice.toLocaleString("ru-RU")} ₽</span>}
                         </div>
                       </div>
                     </div>
@@ -254,20 +260,14 @@ export default function PlaceDetailPage({ params }: PageProps) {
                 </div>
               )}
 
-              {/* CTA */}
-              <div className="bg-winter-blue/10 rounded-xl p-6 border border-winter-blue/30">
-                <h3 className="text-lg font-semibold text-cloud-dark mb-2">
+              {/* Visit Info */}
+              <div className="bg-lake-muted rounded-2xl p-6 border border-lake/20">
+                <h3 className="text-lg font-semibold text-ink-950 mb-2">
                   Хотите посетить?
                 </h3>
-                <p className="text-cloud-muted text-sm mb-4">
-                  Это место входит в наш тур. Свяжитесь с нами для бронирования.
+                <p className="text-ink-600 text-sm leading-relaxed">
+                  Это место входит в наш тур. Посмотрите подробности тура выше.
                 </p>
-                <Link
-                  href="/contacts"
-                  className="block text-center bg-winter-blue text-navy-900 font-semibold px-6 py-3 rounded-lg hover:bg-winter-teal transition-colors"
-                >
-                  Связаться с нами
-                </Link>
               </div>
             </aside>
           </div>
@@ -276,11 +276,13 @@ export default function PlaceDetailPage({ params }: PageProps) {
 
       {/* Nearby Places */}
       {nearbyPlaces.length > 0 && (
-        <section className="py-12 md:py-16 bg-navy-800">
+        <section className="py-12 md:py-16 bg-cloud-warm">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex items-center gap-3 mb-8">
-              <Compass className="w-6 h-6 text-winter-blue" />
-              <h2 className="text-2xl font-bold text-cloud-dark">Рядом</h2>
+              <div className="w-10 h-10 rounded-xl bg-lake/10 flex items-center justify-center">
+                <Compass className="w-5 h-5 text-lake" />
+              </div>
+              <h2 className="text-2xl font-bold text-ink-950">Рядом</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -2,65 +2,199 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles for ApsnyTravel */
+/* ═══════════════════════════════════════════════════════════════════════════
+   ABKHAZIA TOUR CATALOG - GLOBAL STYLES
+   Cloud Dancer Theme with Emerald Lake & Forest Accents
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Base HTML ── */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  @apply bg-navy-900 text-cloud-dark antialiased;
+  @apply bg-cloud text-ink-700 antialiased;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography */
+/* ── Typography Hierarchy ── */
 h1, h2, h3, h4, h5, h6 {
-  @apply font-semibold text-cloud-dark;
+  @apply font-semibold text-ink-950 tracking-tight;
+  text-wrap: balance;
 }
 
-/* Prose styling for Markdown content */
+h1 {
+  @apply text-3xl md:text-4xl lg:text-5xl;
+}
+
+h2 {
+  @apply text-2xl md:text-3xl;
+}
+
+h3 {
+  @apply text-xl md:text-2xl;
+}
+
+/* ── Prose/Markdown Styling ── */
 .prose {
-  @apply text-cloud-dark leading-relaxed;
+  @apply text-ink-700 leading-relaxed;
 }
 
 .prose h2 {
-  @apply text-2xl font-semibold mt-8 mb-4 text-cloud-dark;
+  @apply text-2xl font-semibold mt-10 mb-4 text-ink-950 pb-2 border-b border-cloud-cream;
 }
 
 .prose h3 {
-  @apply text-xl font-semibold mt-6 mb-3 text-cloud-dark;
+  @apply text-xl font-semibold mt-8 mb-3 text-ink-900;
 }
 
 .prose p {
-  @apply mb-4;
+  @apply mb-4 leading-7;
 }
 
 .prose ul {
-  @apply list-disc list-inside mb-4 space-y-1;
+  @apply list-disc list-outside ml-5 mb-4 space-y-2;
+}
+
+.prose ol {
+  @apply list-decimal list-outside ml-5 mb-4 space-y-2;
 }
 
 .prose li {
-  @apply text-cloud-dark;
+  @apply text-ink-700 pl-1;
 }
 
 .prose a {
-  @apply text-winter-blue hover:text-winter-teal underline underline-offset-2 transition-colors;
+  @apply text-emerald font-medium hover:text-emerald-dark underline underline-offset-2 decoration-emerald/30 hover:decoration-emerald transition-all;
 }
 
 .prose strong {
-  @apply font-semibold text-cloud-dark;
+  @apply font-semibold text-ink-900;
 }
 
-/* Card hover effect */
+.prose blockquote {
+  @apply border-l-4 border-emerald/30 pl-4 py-1 my-6 italic text-ink-500 bg-cloud-warm/50 rounded-r-lg;
+}
+
+.prose code {
+  @apply bg-cloud-warm px-1.5 py-0.5 rounded text-sm text-ink-900 font-medium;
+}
+
+/* ── Interactive Elements ── */
+
+/* Card hover effect - subtle lift with shadow */
 .card-hover {
-  @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-lg;
+  @apply transition-all duration-300 ease-out;
 }
 
-/* Link styling */
+.card-hover:hover {
+  @apply -translate-y-1 shadow-elevated;
+}
+
+/* Links */
 a {
   @apply transition-colors duration-200;
 }
 
-/* Focus styles for accessibility */
+/* Primary Button Style (use as utility) */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 
+         bg-emerald text-white font-semibold 
+         px-6 py-3 rounded-xl
+         hover:bg-emerald-light active:bg-emerald-dark
+         transition-all duration-200 
+         shadow-soft hover:shadow-card
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2 focus-visible:ring-offset-cloud;
+}
+
+/* Secondary Button Style */
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 
+         bg-cloud-soft text-ink-900 font-medium 
+         px-6 py-3 rounded-xl
+         border border-cloud-cream
+         hover:bg-cloud-warm hover:border-stone-lighter
+         active:bg-cloud-cream
+         transition-all duration-200
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald focus-visible:ring-offset-2 focus-visible:ring-offset-cloud;
+}
+
+/* ── Focus Styles (Accessibility) ── */
 a:focus-visible,
 button:focus-visible {
-  @apply outline-none ring-2 ring-winter-blue ring-offset-2 ring-offset-navy-900 rounded;
+  @apply outline-none ring-2 ring-emerald ring-offset-2 ring-offset-cloud rounded-lg;
+}
+
+/* ── Selection Colors ── */
+::selection {
+  @apply bg-emerald-muted text-ink-900;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cloud-warm;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-stone-light rounded-full border-2 border-cloud-warm;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-stone;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a8a29e #f3f1ec;
+}
+
+/* ── Utility Classes ── */
+
+/* Section padding */
+.section-padding {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+/* Container */
+.container-custom {
+  @apply max-w-6xl mx-auto px-4 md:px-6;
+}
+
+/* Badge styles */
+.badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-emerald {
+  @apply bg-emerald-muted text-emerald-dark;
+}
+
+.badge-forest {
+  @apply bg-forest-muted text-forest;
+}
+
+.badge-terracotta {
+  @apply bg-terracotta-muted text-terracotta-dark;
+}
+
+.badge-lake {
+  @apply bg-lake-muted text-lake-dark;
+}
+
+/* Price display */
+.price-display {
+  @apply text-2xl md:text-3xl font-bold text-emerald;
+}
+
+.price-from {
+  @apply text-sm text-ink-500 font-normal;
 }

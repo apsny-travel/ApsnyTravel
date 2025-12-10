@@ -9,29 +9,38 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "/tours", label: "Каталог" },
+    { href: "/tours", label: "Каталог туров" },
   ];
 
   return (
-    <header className="bg-navy-800 border-b border-navy-700 sticky top-0 z-50">
+    <header className="bg-cloud-soft/95 backdrop-blur-md border-b border-cloud-cream sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link
             href="/tours"
-            className="flex items-center gap-2 text-cloud-dark hover:text-winter-blue transition-colors"
+            className="flex items-center gap-2.5 group"
           >
-            <Mountain className="w-8 h-8" />
-            <span className="text-xl font-semibold">Каталог Туров</span>
+            <div className="w-9 h-9 rounded-xl bg-emerald/10 flex items-center justify-center group-hover:bg-emerald/20 transition-colors">
+              <Mountain className="w-5 h-5 text-emerald" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg font-semibold text-ink-950 tracking-tight leading-tight">
+                Туры Абхазии
+              </span>
+              <span className="text-xs text-ink-400 hidden sm:block">
+                Озеро Рица и горы Кавказа
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-cloud-muted hover:text-cloud-dark transition-colors"
+                className="text-ink-500 hover:text-emerald transition-colors font-medium"
               >
                 {link.label}
               </Link>
@@ -40,7 +49,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-cloud-dark p-2"
+            className="md:hidden text-ink-700 p-2 hover:bg-cloud-warm rounded-xl transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
           >
@@ -50,13 +59,13 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-2 border-t border-navy-700 pt-4">
-            <div className="flex flex-col gap-4">
+          <nav className="md:hidden mt-4 pb-2 border-t border-cloud-cream pt-4">
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-cloud-muted hover:text-cloud-dark transition-colors py-2"
+                  className="text-ink-700 hover:text-emerald hover:bg-emerald-50 transition-colors py-2.5 px-3 rounded-xl font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
