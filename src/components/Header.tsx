@@ -11,6 +11,7 @@ export default function Header() {
   const navLinks = [
     { href: "/", label: "Главная" },
     { href: "/tours", label: "Туры" },
+    { href: "/guides/border-crossing", label: "Гиды" },
     { href: "/contacts", label: "Контакты" },
   ];
 

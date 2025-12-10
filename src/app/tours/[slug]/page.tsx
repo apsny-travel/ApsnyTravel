@@ -12,12 +12,17 @@ import {
   CheckCircle,
   XCircle,
   ArrowLeft,
+  Star,
 } from "lucide-react";
 import {
   getAllTourSlugs,
   getTourBySlug,
   getRelatedPlacesForTour,
+  getCapsuleDuration,
+  getCapsulePrice,
+  getCapsuleRegion,
 } from "@/lib/capsules/loader";
+import { getCapsuleBody } from "@/lib/capsules/schema";
 import MarkdownContent from "@/components/MarkdownContent";
 import PlaceCard from "@/components/PlaceCard";
 
@@ -56,11 +61,38 @@ export default function TourDetailPage({ params }: PageProps) {
 
   const places = getRelatedPlacesForTour(tour);
 
+  // Handle both v1 and v2 formats
+  const getSeasons = (): string[] => {
+    if (Array.isArray(tour.season)) {
+      return tour.season;
+    }
+    if (typeof tour.season === "string") {
+      return [tour.season];
+    }
+    if (tour.meta?.season) {
+      return Array.isArray(tour.meta.season) ? tour.meta.season : [tour.meta.season];
+    }
+    return [];
+  };
+
+  const seasons = getSeasons();
+  const duration = getCapsuleDuration(tour) || tour.duration || "";
+  const price = getCapsulePrice(tour) || tour.priceFrom;
+  const region = getCapsuleRegion(tour) || tour.region;
+  const difficulty = tour.difficulty || tour.meta?.difficulty || "moderate";
+  const contentBody = getCapsuleBody(tour);
+
+  // Get includes/excludes from both formats
+  const includes = tour.includes || tour.included || [];
+  const excludes = tour.excludes || tour.notIncluded || [];
+  const highlights = tour.highlights || [];
+
   const seasonLabels: Record<string, string> = {
     winter: "Зима",
     spring: "Весна",
     summer: "Лето",
     autumn: "Осень",
+    all: "Весь год",
   };
 
   const difficultyLabels: Record<string, string> = {
@@ -99,12 +131,15 @@ export default function TourDetailPage({ params }: PageProps) {
           </Link>
 
           {/* Season Badge */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className="bg-winter-blue/90 text-navy-900 text-sm font-medium px-4 py-1.5 rounded-full flex items-center gap-2">
-              <Snowflake className="w-4 h-4" />
-              {tour.season.map((s) => seasonLabels[s] || s).join(", ")}
-            </span>
-          </div>
+          {seasons.length > 0 && (
+            <div className="flex items-center gap-2 mb-4">
+              <span className="bg-winter-blue/90 text-navy-900 text-sm font-medium px-4 py-1.5 rounded-full flex items-center gap-2">
+                <Snowflake className="w-4 h-4" />
+                {seasons.map((s) => seasonLabels[s] || s).join(", ")}
+              </span>
+              {tour.emoji && <span className="text-2xl">{tour.emoji}</span>}
+            </div>
+          )}
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-cloud-dark mb-4">
             {tour.title}
@@ -117,19 +152,21 @@ export default function TourDetailPage({ params }: PageProps) {
       <section className="bg-navy-800 border-y border-navy-700">
         <div className="max-w-6xl mx-auto px-4 py-6">
           <div className="flex flex-wrap gap-6 md:gap-10">
-            <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-winter-blue" />
-              <div>
-                <div className="text-xs text-cloud-muted">Длительность</div>
-                <div className="text-cloud-dark font-medium">{tour.duration}</div>
+            {duration && (
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-winter-blue" />
+                <div>
+                  <div className="text-xs text-cloud-muted">Длительность</div>
+                  <div className="text-cloud-dark font-medium">{duration}</div>
+                </div>
               </div>
-            </div>
+            )}
             <div className="flex items-center gap-3">
               <Mountain className="w-5 h-5 text-winter-blue" />
               <div>
                 <div className="text-xs text-cloud-muted">Сложность</div>
                 <div className="text-cloud-dark font-medium">
-                  {difficultyLabels[tour.difficulty] || tour.difficulty}
+                  {difficultyLabels[difficulty] || difficulty}
                 </div>
               </div>
             </div>
@@ -144,23 +181,22 @@ export default function TourDetailPage({ params }: PageProps) {
                 </div>
               </div>
             )}
-            <div className="flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-winter-blue" />
-              <div>
-                <div className="text-xs text-cloud-muted">Регион</div>
-                <div className="text-cloud-dark font-medium">
-                  {tour.region === "abkhazia" ? "Абхазия" : tour.region}
+            {region && (
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-winter-blue" />
+                <div>
+                  <div className="text-xs text-cloud-muted">Регион</div>
+                  <div className="text-cloud-dark font-medium">
+                    {regionLabels[region] || region}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3 ml-auto">
-              <div className="text-right">
-                <div className="text-xs text-cloud-muted">Стоимость от</div>
-                <div className="text-2xl font-bold text-winter-blue">
-                  {tour.priceFrom.toLocaleString("ru-RU")} ₽
+            )}
+            {price && (
+              <div className="flex items-center gap-3 ml-auto">
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -171,20 +207,41 @@ export default function TourDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Body Content */}
             <div className="lg:col-span-2">
-              <MarkdownContent content={tour.content.body} />
+              <MarkdownContent content={contentBody} />
             </div>
 
             {/* Sidebar */}
             <aside className="space-y-8">
+              {/* Highlights */}
+              {highlights.length > 0 && (
+                <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+                  <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-winter-blue" />
+                    Основные моменты
+                  </h3>
+                  <ul className="space-y-2">
+                    {highlights.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2 text-cloud-muted text-sm"
+                      >
+                        <Star className="w-4 h-4 text-winter-blue flex-shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {/* Includes */}
-              {tour.includes && tour.includes.length > 0 && (
+              {includes.length > 0 && (
                 <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
                   <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-winter-teal" />
                     Включено в стоимость
                   </h3>
                   <ul className="space-y-2">
-                    {tour.includes.map((item, idx) => (
+                    {includes.map((item, idx) => (
                       <li
                         key={idx}
                         className="flex items-start gap-2 text-cloud-muted text-sm"
@@ -198,14 +255,14 @@ export default function TourDetailPage({ params }: PageProps) {
               )}
 
               {/* Excludes */}
-              {tour.excludes && tour.excludes.length > 0 && (
+              {excludes.length > 0 && (
                 <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
                   <h3 className="text-lg font-semibold text-cloud-dark mb-4 flex items-center gap-2">
                     <XCircle className="w-5 h-5 text-cloud-muted" />
                     Не включено
                   </h3>
                   <ul className="space-y-2">
-                    {tour.excludes.map((item, idx) => (
+                    {excludes.map((item, idx) => (
                       <li
                         key={idx}
                         className="flex items-start gap-2 text-cloud-muted text-sm"

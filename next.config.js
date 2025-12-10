@@ -4,6 +4,14 @@ const nextConfig = {
   // output: "export",
   images: {
     unoptimized: true, // For local images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
